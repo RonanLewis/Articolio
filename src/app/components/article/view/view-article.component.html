@@ -1,0 +1,10 @@
+<div *ngIf="articleFound" class="jumbotron">
+  <div class="text-center mb-5">
+    <h2>{{article.title}}</h2>
+  </div>
+  <div [innerHTML]="article.contentHTML">
+  </div>
+</div>
+<div class="jumbotron text-center" *ngIf="!articleFound">
+  No article found.
+</div>

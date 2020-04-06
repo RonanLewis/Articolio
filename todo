@@ -1,0 +1,1 @@
+-Get current user role to display elements in the DOM (dont use localStorage as this can be edited).

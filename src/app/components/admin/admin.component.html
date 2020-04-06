@@ -1,0 +1,44 @@
+<h3>All registered users:</h3>
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Role</th>
+      <th scope="col">Username</th>
+      <th scope="col">First Name</th>
+      <th scope="col">Last Name</th>
+      <th scope="col">Date Joined</th>
+      <th scope="col"></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let user of users">
+      <th scope="row">{{users.indexOf(user) + 1}}</th>
+      <td>{{user.role}}</td>
+      <td>{{user.username}}</td>
+      <td>{{user.firstName}}</td>
+      <td>{{user.lastName}}</td>
+      <td>{{user.createdDate | date: 'dd/MM/yyyy HH:mm:SS'}}</td>
+      <td>
+        <button type="button" (click)="openModal(template, user)" class="btn btn-danger float-right"
+          *ngIf="user._id != currentUser._id">Delete</button>
+        <button type="button" disabled class="btn btn-success float-right" *ngIf="user._id == currentUser._id">Current
+          User</button>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<ng-template #template>
+  <div class="modal-header text-center">
+    <h4>Are you sure you want to delete <span class="text-danger">{{toDelete.username}}</span>?</h4>
+  </div>
+  <div class="modal-body text-center">
+    <p>This will remove the user from the database forever. No going back.</p>
+    <div class="btn-group" role="group" aria-label="Basic example">
+      <button type="button" class="btn btn-danger" (click)="confirm()">Delete</button>
+      <button type="button" class="btn btn-outline-danger" (click)="decline()">Cancel</button>
+    </div>
+
+  </div>
+
+</ng-template>

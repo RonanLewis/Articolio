@@ -1,0 +1,21 @@
+.ql-editor {
+  min-height: 256px;
+}
+
+.ql-toolbar {
+  border-radius: 0.25rem 0.25rem 0 0;
+}
+
+.ql-container {
+  border-radius: 0 0 0.25rem 0.25rem;
+}
+
+quill-editor.is-invalid .ql-toolbar {
+  border: 1px solid #d9534f;
+  border-bottom: 1px solid #ccc;
+}
+
+quill-editor.is-invalid .ql-container {
+  border: 1px solid #d9534f;
+  border-top: none;
+}

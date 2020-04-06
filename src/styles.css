@@ -1,0 +1,73 @@
+/* You can add global styles to this file, and also import other style files */
+
+html, body {
+  height: 100%;
+  padding-top: 40px;
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+  /*color: white;*/
+  background-color: #f8f9fa !important;
+}
+
+#mainNav {
+  -webkit-box-shadow: 0px 2px 6px 0px rgba(0, 0, 0, 0.75);
+  -moz-box-shadow: 0px 2px 6px 0px rgba(0, 0, 0, 0.75);
+  box-shadow: 0px 2px 6px 0px rgba(0, 0, 0, 0.75);
+}
+
+#mainContent {
+  padding-top: 1.5em;
+}
+
+@media screen and (max-width: 768px) {
+  body {
+    padding-top: 0px;
+  }
+}
+
+/* Quill Custom CSS */
+
+app-add-article .ql-editor {
+  min-height: 18rem;
+  background-color: white;
+}
+
+.ql-toolbar {
+  border-radius: 0.25rem 0.25rem 0 0;
+  -webkit-transition: border-color 0.15s ease-in-out, -webkit-box-shadow 0.15s ease-in-out;
+  -webkit-transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+.ql-container {
+  border-radius: 0 0 0.25rem 0.25rem;
+  -webkit-transition: border-color 0.15s ease-in-out, -webkit-box-shadow 0.15s ease-in-out;
+  -webkit-transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+quill-editor.is-invalid .ql-toolbar {
+  border: 1px solid #d9534f;
+  border-bottom: 1px solid #ccc;
+}
+
+quill-editor.is-invalid .ql-container {
+  border: 1px solid #d9534f;
+  border-top: none;
+}
+
+quill-editor.is-valid .ql-toolbar {
+  border: 1px solid #02B875;
+  border-bottom: 1px solid #ccc;
+}
+
+quill-editor.is-valid .ql-container {
+  border: 1px solid #02B875;
+  border-top: none;
+}
+
+.invisible-input-cont input {
+  width: 0px;
+  height: 0px;
+  position: absolute;
+}

@@ -1,0 +1,59 @@
+<nav class="navbar fixed-top navbar-expand-sm navbar-light bg-light" id="mainNav" *ngIf="currentUser">
+  <a [routerLink]="['/']" routerLinkActive="router-link-active" class="navbar-brand mr-5">Articolio</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navBarToggle"
+    aria-controls="navBarToggle" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navBarToggle">
+    <ul class="navbar-nav w-75 mx-auto">
+      <li class="nav-item w-100 mx-5">
+        <form class="form-inline" (ngSubmit)="onSubmit(navSearchForm.value)" [formGroup]="navSearchForm">
+          <div class="input-group w-100">
+            <input type="text" formControlName="navSearchTerms" class="form-control" placeholder="Search...">
+            <div class="input-group-append">
+              <button class="btn btn-outline-secondary fa fa-search" type="submit"></button>
+            </div>
+          </div>
+        </form>
+      </li>
+    </ul>
+
+    <ul class="navbar-nav text-nowrap" id="authUserNav">
+      <li class="nav-item">
+        <a class="nav-link" [routerLink]="['/article/add']">Add Article</a>
+      </li>
+      <!-- Navbar Dropdown -->
+      <li class="nav-item ml-5">
+        <div class="btn-group" dropdown placement="top left">
+          <button id="button-basic" dropdownToggle type="button" class="btn nav-link" aria-controls="dropdown-basic">
+            {{currentUser.username}} <i class="ml-1 fa fa-user-circle"></i>
+          </button>
+          <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu dropdown-menu-right text-center" role="menu"
+            aria-labelledby="button-basic">
+            <li role="menuitem"><a class="dropdown-item" [routerLink]="['/admin']" routerLinkActive="router-link-active"
+                *ngIf="currentUser.role == 'Admin'">
+                <i class="fa fa-user-secret float-left"></i><span class="ml-2">Admin</span>
+              </a>
+            </li>
+            <li role="menuitem">
+              <a class="dropdown-item" [routerLink]="['/user']" routerLinkActive="router-link-active">
+                <i class="fa fa-user float-left"></i><span class="ml-2">{{currentUser.username}}</span>
+              </a>
+            </li>
+            <li class="divider dropdown-divider"></li>
+            <li role="menuitem">
+              <a class="dropdown-item" (click)="logout()" href="#">
+                <i class="fa fa-sign-out-alt float-left"></i><span class="ml-2">Log Out</span>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </li>
+
+    </ul>
+  </div>
+</nav>
+<div class="container-fluid" id="mainContent">
+  <!-- Content here -->
+  <router-outlet></router-outlet>
+</div>

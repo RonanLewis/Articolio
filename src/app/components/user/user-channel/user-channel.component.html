@@ -1,0 +1,79 @@
+<div id="user-channel" class="w-100">
+  {{dateNow}}
+  <div class="card-deck">
+    <div class="card my-3" *ngFor="let article of userArticles">
+      <img class="card-img-top" [src]="env.serverUrl + article.image.path" alt="Article image">
+      <div class="card-body">
+        <h5 class="card-title">{{article.title}}</h5>
+        <p class="card-text">{{(article.contentText | slice:0:140)}}{{'...'}}</p>
+        <a [routerLink]="['/article/']" [queryParams]="{id: article.id}" routerLinkActive="router-link-active"
+          class="stretched-link"></a>
+      </div>
+      <div class="card-footer" style="font-size: 1rem;">
+        <div class="row">
+          <div class="col-sm-4 text-nowrap my-auto">
+            <div class="row text-center">
+              <div class="col-sm-6 upvote-col">
+                <small><i class="fa fa-arrow-up"></i> {{article.upVotes}}</small>
+              </div>
+              <div class="col-sm-6 downvote-col">
+                <small><i class="fa fa-arrow-down"></i> {{article.downVotes}}</small>
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-8">
+            <div class="row float-right w-100">
+              <div class="col-sm text-right px-0 mr-2 float-right">
+                <small>Updated: </small>
+                <!--<small>{{article.lastUpdated[0] | date: 'dd/MM/yyyy'}}</small>-->
+                <!-- {{dateDifferenceFromNow(article.lastUpdated[article.lastUpdated.length - 1]).days}} -->
+                <!-- Less than a day -->
+                <div class="d-inline-block">
+                  <div
+                    *ngIf="dateDifferenceFromNow(article.lastUpdated[article.lastUpdated.length - 1]).days == 0
+                              && dateDifferenceFromNow(article.lastUpdated[article.lastUpdated.length - 1]).hours == 0">
+                    <small *ngIf="dateDifferenceFromNow(article.lastUpdated[article.lastUpdated.length - 1]).mins == 0">
+                      < 1 minute ago. </small>
+                        <small
+                          *ngIf="dateDifferenceFromNow(article.lastUpdated[article.lastUpdated.length - 1]).mins == 1">
+                          1 minute ago.
+                        </small>
+                        <small
+                          *ngIf="dateDifferenceFromNow(article.lastUpdated[article.lastUpdated.length - 1]).mins > 1">
+                          {{dateDifferenceFromNow(article.lastUpdated[article.lastUpdated.length - 1]).mins}} minutes
+                          ago.
+                        </small>
+                  </div>
+                  <div *ngIf="dateDifferenceFromNow(article.lastUpdated[article.lastUpdated.length - 1]).days == 0
+                              && dateDifferenceFromNow(article.lastUpdated[article.lastUpdated.length - 1]).hours > 0">
+                    <small
+                      *ngIf="dateDifferenceFromNow(article.lastUpdated[article.lastUpdated.length - 1]).hours == 1">
+                      1 hour ago.
+                    </small>
+                    <small *ngIf="dateDifferenceFromNow(article.lastUpdated[article.lastUpdated.length - 1]).hours > 1">
+                      {{dateDifferenceFromNow(article.lastUpdated[article.lastUpdated.length - 1]).hours}} hours ago.
+                    </small>
+                  </div>
+                  <!-- Within a week -->
+                  <div *ngIf="(dateDifferenceFromNow(article.lastUpdated[article.lastUpdated.length - 1]).days > 0
+                            && dateDifferenceFromNow(article.lastUpdated[article.lastUpdated.length - 1]).days <= 7)">
+                    <small *ngIf="dateDifferenceFromNow(article.lastUpdated[article.lastUpdated.length - 1]).days == 1">
+                      1 day ago.
+                    </small>
+                    <small *ngIf="dateDifferenceFromNow(article.lastUpdated[article.lastUpdated.length - 1]).days > 1">
+                      {{dateDifferenceFromNow(article.lastUpdated[article.lastUpdated.length - 1]).days}} days ago.
+                    </small>
+                  </div>
+                  <!-- Over a week -->
+                  <div *ngIf="dateDifferenceFromNow(article.lastUpdated[article.lastUpdated.length - 1]).days > 7">
+                    <small>{{article.lastUpdated[0] | date: 'dd/MM/yyyy'}}</small>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

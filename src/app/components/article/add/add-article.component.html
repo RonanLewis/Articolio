@@ -1,0 +1,97 @@
+<div class="container">
+  <div class="invisible-input-cont">
+    <input #quillFile type="file" (change)="quillFileSelected($event)">
+  </div>
+  <form [formGroup]="newArticleForm" (ngSubmit)="onSubmit(newArticleForm.value)">
+    <!-- Title -->
+    <div class="form-group">
+      <label for="articleTitle">
+        <span>
+          <div class="d-inline font-weight-bold">
+            Title
+          </div>
+          <div *ngIf="articleTitle.invalid && (articleTitle.dirty || articleTitle.touched)" role="alert"
+            class="text-danger d-inline font-weight-light">
+            <div *ngIf="articleTitle.errors.required" class="d-inline">
+              <small>
+                Title is required.
+              </small>
+            </div>
+            <div *ngIf="articleTitle.errors.minlength" class="d-inline">
+              <small>
+                Title must be at least 4 characters long.
+              </small>
+            </div>
+            <div *ngIf="articleTitle.errors.forbiddenName" class="d-inline">
+              <small>
+                Title must start with a letter or number.
+              </small>
+            </div>
+          </div>
+        </span>
+      </label>
+      <input type="text" formControlName="articleTitle" [ngClass]="{'is-valid': !(articleTitle.invalid) && (articleTitle.dirty || articleTitle.touched),
+                  'is-invalid' : (articleTitle.invalid && (articleTitle.dirty || articleTitle.touched))}" required
+        class="form-control" required aria-describedby="articleTitle" placeholder="Article title.">
+    </div>
+    <!-- Image -->
+    <div class="form-group">
+      <label for="articleImage">
+        <span>
+          <div class="d-inline font-weight-bold">
+            Image
+          </div>
+        </span>
+      </label>
+      <div *ngIf="!imageHelper.previewImageURL" class="custom-file">
+        <input type="file" formControlName="articleImage" (change)="onFileChange($event)" class="custom-file-input">
+        <label class="custom-file-label"
+          for="articleImage">{{ articleImage.value ? articleImage.value.toString().split('\\').pop() : 'Upload an image.' }}</label>
+      </div>
+      <div *ngIf="imageHelper.previewImageURL">
+        <img id="imagePreview" [src]="imageHelper.previewImageURL" class="img-thumbnail rounded my-3 d-inline-block"
+          alt="Preview image.">
+        <button class="btn btn-link d-inline-block" (click)="resetImagePicker()">Change</button>
+      </div>
+    </div>
+    <!-- Content -->
+    <div class="form-group">
+      <label for="articleContent">
+        <span>
+          <div class="d-inline font-weight-bold">
+            Content
+          </div>
+          <div *ngIf="articleContent.invalid && (articleContent.dirty || articleContent.touched)" role="alert"
+            class="text-danger d-inline font-weight-light">
+            <div *ngIf="articleContent.errors.minlength" class="d-inline">
+              <small>
+                Your article must be at least 32 characters long.
+              </small>
+            </div>
+          </div>
+        </span>
+      </label>
+      <quill-editor [modules]="editorModules" (onContentChanged)="checkImagesToDelete($event)"
+        (onEditorCreated)="getMeEditorInstance($event)" formControlName="articleContent" [ngClass]="{'is-valid': !(articleContent.invalid) && (articleContent.dirty || articleContent.touched),
+                  'is-invalid' : (articleContent.invalid && (articleContent.dirty || articleContent.touched))}"
+        required></quill-editor>
+    </div>
+
+    <!-- Tags -->
+    <div class="form-group">
+      <label for="articleTags">
+        Tags
+      </label>
+      <small class="form-text text-muted">Enter up to 8 tags which relate to your article.</small>
+      <tag-input formControlName="articleTags" inputClass="form-control" maxItems="8" addOnBlur="true"
+        modelAsStrings="false"></tag-input>
+    </div>
+    <div class="form-group">
+      <button class="btn btn-primary" type="submit">
+        Add&nbsp;
+        <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
+      </button>
+      <button class="btn btn-danger float-right" type="button" (click)="cancel()">Cancel</button>
+    </div>
+  </form>
+</div>
