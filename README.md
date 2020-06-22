@@ -1,3 +1,5 @@
+Change the apiUrl in the environments file to your own local ip address.
+
 # Articolio
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 9.0.5.
